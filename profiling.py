@@ -96,7 +96,7 @@ def show_histograms_symbolic(df):
     for n in range(len(symbolic_vars)):
         counts = df[symbolic_vars[n]].value_counts()
         bar_chart(counts.index.to_list(), counts.values, ax=axs[i, j], title='Histogram for %s' % symbolic_vars[n],
-                  xlabel=symbolic_vars[n], ylabel='nr records', percentage=False)
+                  x_label=symbolic_vars[n], y_label='nr records', percentage=False)
         i, j = (i + 1, 0) if (n + 1) % cols == 0 else (i, j + 1)
 
 
