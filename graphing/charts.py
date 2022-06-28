@@ -20,16 +20,19 @@ def choose_grid(nr):
         return (nr // NR_COLUMNS, NR_COLUMNS) if nr % NR_COLUMNS == 0 else (nr // NR_COLUMNS + 1, NR_COLUMNS)
 
 
-def set_elements(ax: plt.Axes = None, title: str = '', x_label: str = '', y_label: str = '', percentage: bool = False):
+def set_elements(ax: plt.Axes = None, title: str = '', x_label: str = '', y_label: str = '', percentage: bool = False, y_lim: float = None):
     if ax is None:
         ax = plt.gca()
     ax.set_title(title)
     ax.set_xlabel(x_label)
     ax.set_ylabel(y_label)
+
+    if y_lim:
+        ax.set_ylim(0.0, 9.0)
+
     if percentage:
         ax.set_ylim(0.0, 1.0)
     return ax
-
 
 def set_locators(x_values: list, ax: plt.Axes = None, rotation: bool = False):
     if isinstance(x_values[0], datetime):
@@ -48,9 +51,8 @@ def set_locators(x_values: list, ax: plt.Axes = None, rotation: bool = False):
 
 
 def bar_chart(x_values: list, y_values: list, ax: plt.Axes = None, title: str = '', x_label: str = '',
-              y_label: str = '',
-              percentage: bool = False, rotation: bool = False):
-    ax = set_elements(ax=ax, title=title, x_label=x_label, y_label=y_label, percentage=percentage)
+              y_label: str = '', percentage: bool = False, rotation: bool = False, y_lim: float = None):
+    ax = set_elements(ax=ax, title=title, x_label=x_label, y_label=y_label, percentage=percentage, y_lim=y_lim)
     set_locators(x_values, ax=ax, rotation=rotation)
     ax.bar(x_values, y_values, edgecolor=cfg.LINE_COLOR, color=cfg.FILL_COLOR, tick_label=x_values)
     for i in range(len(y_values)):
